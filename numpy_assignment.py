@@ -87,7 +87,9 @@ def min_row_col(m):
 #
 # FYI: The RPM gauge is called "tachometer"
 def fix_gauge_bias(car_data, speed_bias, rpm_bias):
-    
+    car_data[:,0] = car_data[:,0] - speed_bias
+    car_data[:,1] = car_data[:,1] - rpm_bias
+    #print(car_data) remember to remove this line when submitting
     return car_data
 
 ## Task 5
@@ -114,6 +116,7 @@ def fix_gauge_bias(car_data, speed_bias, rpm_bias):
 # such as continuously variable transmission (CVT) and the hybrid transmission
 # in Toyota Prius.
 def was_gear_switched(car_data):
+    
     return False
 
 ## Task 6 (bonus) ##############################################################
