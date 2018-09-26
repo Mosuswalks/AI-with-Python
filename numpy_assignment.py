@@ -73,7 +73,7 @@ def xmatrix(N):
 
 def min_row_col(m):
     minCol = m.sum(axis=0).argmin()
-    minRow = m.sum(axis=0).argmin()
+    minRow = m.sum(axis=1).argmin()
     return minRow, minCol  # min_row_ix, min_col_ix
 
 ## Task 4 ###################################################################### 
@@ -116,7 +116,10 @@ def fix_gauge_bias(car_data, speed_bias, rpm_bias):
 # such as continuously variable transmission (CVT) and the hybrid transmission
 # in Toyota Prius.
 def was_gear_switched(car_data):
-    
+    gear_ratios = car_data[:,1] / car_data[:,0]
+    for x in range(len(gear_ratios) - 1):
+        if (gear_ratios[x] - gear_ratios[x + 1] >= 10):
+            return True
     return False
 
 ## Task 6 (bonus) ##############################################################
@@ -131,7 +134,12 @@ def was_gear_switched(car_data):
 # HINT: take a look at np.unique() and array sort() functions, they might be
 # useful (depending on the strategy you choose).
 def count_gears_used(car_data):
-    return 1
+    gear_ratios = car_data[:,1] / car_data[:,0]
+    count = 0
+    for x in range(len(gear_ratios) - 1):
+        if (gear_ratios[x] - gear_ratios[x + 1] >= 10):
+            count += 1
+    return count + 1
 
     
 
