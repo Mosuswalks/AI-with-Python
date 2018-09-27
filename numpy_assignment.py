@@ -87,10 +87,10 @@ def min_row_col(m):
 #
 # FYI: The RPM gauge is called "tachometer"
 def fix_gauge_bias(car_data, speed_bias, rpm_bias):
-    car_data[:,0] = car_data[:,0] - speed_bias
-    car_data[:,1] = car_data[:,1] - rpm_bias
-    #print(car_data) remember to remove this line when submitting
-    return car_data
+    fixed_gauges = car_data.copy()
+    fixed_gauges[:,0] = car_data[:,0] - speed_bias
+    fixed_gauges[:,1] = car_data[:,1] - rpm_bias
+    return fixed_gauges
 
 ## Task 5
 # Continuing with car data from previous task. In most cars the ratio between
@@ -135,11 +135,11 @@ def was_gear_switched(car_data):
 # useful (depending on the strategy you choose).
 def count_gears_used(car_data):
     gear_ratios = car_data[:,1] / car_data[:,0]
-    count = 0
+    count = 1
     for x in range(len(gear_ratios) - 1):
         if (gear_ratios[x] - gear_ratios[x + 1] >= 10):
             count += 1
-    return count + 1
+    return count
 
     
 
@@ -244,7 +244,7 @@ if __name__ == '__main__':
         print(OK)
         total_score += 25
     else:
-        print(ERR, 'expected [%d, %d]' % (s_bias, r_bias))
+        print(ERR, 'expected [%f, %f]' % (s_bias, r_bias))
 
     print()
     print('####### Task5: was there a gear shift #############################')
@@ -259,7 +259,7 @@ if __name__ == '__main__':
     # input with a gear shift.
     yes_shift = no_shift.copy()
     yes_shift[0, 1] = yes_shift[0, 0] * 105
-                            
+  
     wasSwitched1 = was_gear_switched(no_shift)
     print(OUT, 'was_gear_switched(no_shift) = %s' % (wasSwitched1,) )
     if not wasSwitched1:
