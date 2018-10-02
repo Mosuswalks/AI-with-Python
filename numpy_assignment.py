@@ -135,11 +135,9 @@ def was_gear_switched(car_data):
 # useful (depending on the strategy you choose).
 def count_gears_used(car_data):
     gear_ratios = car_data[:,1] / car_data[:,0]
-    count = 1
-    for x in range(len(gear_ratios) - 1):
-        if (gear_ratios[x] - gear_ratios[x + 1] >= 10):
-            count += 1
-    return count
+    gear = set([int(x) for x in gear_ratios])
+    print(gear)
+    return len(gear)
 
     
 
