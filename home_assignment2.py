@@ -55,7 +55,25 @@ student_id = 100649804
 # Make sure to try edge cases, such as an empty table.
 # No need to check input validity.
 def avgby(tbl, col, by):
-    return {}
+
+    averages = {}
+    counts = {}
+
+    if range(len(tbl)) == 0:
+        return {}
+
+    for x in range(len(tbl)):
+        if tbl[x][by] in averages.keys():
+            averages[tbl[x][by]] += tbl[x][col]
+            counts[tbl[x][by]] += 1
+        if tbl[x][by] not in averages.keys():
+            averages[tbl[x][by]] = tbl[x][col]
+            counts[tbl[x][by]] = 1
+
+    for x in averages:
+        averages[x] = averages[x]/counts[x]
+    return averages
+        
 
 
 ## Task 3 - Merge ##############################################################
@@ -106,7 +124,10 @@ def avgby(tbl, col, by):
 # https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html#Many-to-many-joins
 
 def merge(left, right, left_on, right_on):
-    merged = []
+    
+    merged = [x in left for x in right]
+    
+    #merged = list(filter(lambda x: ))
     return merged
 
 
