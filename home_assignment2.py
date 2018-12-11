@@ -75,7 +75,6 @@ def avgby(tbl, col, by):
     return averages
         
 
-
 ## Task 3 - Merge ##############################################################
 # You are only allowed to use the Python standard libraries for this task: 
 # No NumPy, no Pandas !!!
@@ -124,10 +123,12 @@ def avgby(tbl, col, by):
 # https://jakevdp.github.io/PythonDataScienceHandbook/03.07-merge-and-join.html#Many-to-many-joins
 
 def merge(left, right, left_on, right_on):
-    
-    merged = [x in left for x in right]
-    
-    #merged = list(filter(lambda x: ))
+
+    merged = []
+    for x in left:
+        for y in right:
+            if y[right_on] == x[left_on]:
+                merged.append(y+x)
     return merged
 
 
